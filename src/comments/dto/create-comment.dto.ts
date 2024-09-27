@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateCommentDto {
   @IsString()
@@ -8,8 +8,15 @@ export class CreateCommentDto {
   // ID del usuario
   @IsString()
   @IsNotEmpty()
-  author: string;  
+  userId: string;  
 
+  // ID del contenido (película, serie o anime)
   @IsString()
-  parentComment?: string;  
+  @IsNotEmpty()
+  contentId: string; 
+
+  // ID del comentario padre (opcional)
+  @IsString()
+  @IsOptional() 
+  parentComment?: string;
 }

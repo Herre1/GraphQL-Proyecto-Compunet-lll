@@ -20,6 +20,7 @@ import { CommentsModule } from './comments/comments.module';
     }),
     ContentModule,
     AuthModule,
+    CommentsModule
   ],
 })
 export class AppModule {}

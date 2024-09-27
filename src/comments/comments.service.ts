@@ -12,8 +12,12 @@ export class CommentsService {
   ) {}
 
   // Crear un nuevo comentario
-  async create(createCommentDto: CreateCommentDto): Promise<Comment> {
-    const newComment = new this.commentModel(createCommentDto);
+  async create(createCommentDto: CreateCommentDto, userId: string, contentId: string): Promise<Comment> {
+    const newComment = new this.commentModel({
+      ...createCommentDto,
+      author: userId,       // Relacionar el comentario con el usuario
+      contentId: contentId, // Relacionar el comentario con el contenido
+    });
     return newComment.save();
   }
 
@@ -32,20 +36,22 @@ export class CommentsService {
   }
 
   // Responder a un comentario 
-  async replyToComment(parentCommentId: string, createCommentDto: CreateCommentDto): Promise<Comment> {
-    const parentComment = await this.commentModel.findById(parentCommentId).exec() as Comment;  
+  async replyToComment(parentCommentId: string, createCommentDto: CreateCommentDto, userId: string, contentId: string): Promise<Comment> {
+    const parentComment = await this.commentModel.findById(parentCommentId).exec();
     if (!parentComment) {
       throw new NotFoundException(`Parent comment with ID ${parentCommentId} not found`);
     }
 
     const reply = new this.commentModel({
       ...createCommentDto,
-      parentComment: parentCommentId, // Reacionamos la respuesta con el comentario padre
+      parentComment: parentCommentId, // Relacionamos la respuesta con el comentario padre
+      author: userId,                 // Relacionar el comentario con el usuario
+      contentId: contentId,           // Relacionar el comentario con el contenido
     });
     const savedReply = await reply.save();
 
     // Añadir la respuesta a la lista de respuestas del comentario padre
-    parentComment.replies.push(savedReply._id.toString());  // Asegúrate de usar el ID como string
+    parentComment.replies.push(savedReply._id.toString());  
     await parentComment.save();
 
     return savedReply;
@@ -76,7 +82,7 @@ export class CommentsService {
       throw new NotFoundException(`Comment with ID ${id} not found`);
     }
 
-    // Opcional: eliminar respuestas asociadas
+    //eliminar respuestas asociadas
     await this.commentModel.deleteMany({ parentComment: id }).exec();
 
     return deletedComment;

@@ -8,8 +8,12 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentsService.create(createCommentDto);
+  create(
+    @Body('contentId') contentId: string, 
+    @Body('userId') userId: string, 
+    @Body() createCommentDto: CreateCommentDto
+  ) {
+    return this.commentsService.create(createCommentDto, userId, contentId);
   }
 
   @Get()
@@ -24,12 +28,13 @@ export class CommentsController {
 
   @Post('reply/:id')
   replyToComment(
-    @Param('id') parentCommentId: string,
+    @Param('id') parentCommentId: string, 
+    @Body('userId') userId: string, 
+    @Body('contentId') contentId: string, 
     @Body() createCommentDto: CreateCommentDto
   ) {
-    return this.commentsService.replyToComment(parentCommentId, createCommentDto);
+    return this.commentsService.replyToComment(parentCommentId, createCommentDto, userId, contentId);
   }
-
 
   @Get('parent/:id')
   findReplies(@Param('id') parentCommentId: string) {
@@ -46,4 +51,3 @@ export class CommentsController {
     return this.commentsService.remove(id);
   }
 }
-

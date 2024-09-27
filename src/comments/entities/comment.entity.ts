@@ -6,8 +6,11 @@ export class Comment extends Document {
   @Prop({ required: true })
   content: string;
 
-  @Prop({ type: String, ref: 'User', required: true })
+  @Prop({ type: String, ref: 'User', required: true })  // Relación con usuario
   author: string;  
+
+  @Prop({ type: String, ref: 'Content', required: true })  // Relación con contenido
+  contentId: string;  
 
   @Prop({ type: String, ref: 'Comment', default: null })
   parentComment?: string;  
