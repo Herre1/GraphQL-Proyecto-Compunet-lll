@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ContentModule } from './content/content.module';
 import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comments.module';
+import { ReactionsModule } from './reactions/reactions.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { CommentsModule } from './comments/comments.module';
     }),
     ContentModule,
     AuthModule,
-    CommentsModule
+    CommentsModule,
+    ReactionsModule,
   ],
 })
 export class AppModule {}
