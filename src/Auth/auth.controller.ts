@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { UserRoleGuard } from './guards/user-role/user-role.guard';
+import { UserRoleGuard } from '../Auth/guards/user-role.guard';
 import { GetUser } from './decorators/get-user/get-user.decorator';
 import { RoleProtected } from './decorators/role-protected.decorator';
 import { ValidRoles } from './interfaces/valid-roles';
@@ -39,7 +39,7 @@ export class AuthController {
     }
 
     @Get('routeprotected4')
-    @Auth(ValidRoles.admin, ValidRoles.write)
+    @Auth(ValidRoles.admin)
     routeProtected4(@Req() req) {
         console.log(req.user);
         return 'This route is protected';

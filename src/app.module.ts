@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CarsModule } from './cars/cars.module';
-import { BrandsModule } from './brands/brands.module';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { CommonModule } from './common/common.module';
@@ -22,8 +20,7 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true, // solo para desarrollo
     }),
 
-    CarsModule, 
-    BrandsModule, CommonModule, AuthModule
+     CommonModule, AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
