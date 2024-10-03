@@ -24,7 +24,7 @@ export class AuthController {
     }
 
     @Get('routeprotected1')
-    @UseGuards(AuthGuard())
+    @UseGuards(AuthGuard()) // Verificar si esta en JWT
     routeProtected1() {
         return 'This route is protected';
     }
