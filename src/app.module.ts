@@ -11,11 +11,7 @@ import { AuthModule } from './auth/auth.module';
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST,
-      database: process.env.DB_NAME,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD, 
-      port: +process.env.DB_PORT,
+      url: process.env.URL,
       autoLoadEntities: true,
       synchronize: true, // solo para desarrollo
     }),
