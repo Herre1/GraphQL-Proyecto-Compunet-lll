@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ContentService } from './content.service';
 import { CreateContentDto } from './dto/create-content.dto';
 import { UpdateContentDto } from './dto/update-content.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ValidRoles } from '../auth/interfaces/valid-roles';
 
@@ -25,8 +24,8 @@ export class ContentController {
 
   }
 
-  @Post()
-  @Auth(ValidRoles.admin) // Solo admin puede crear contenido
+  @Post() // Solo admin puede crear contenido
+  @Auth(ValidRoles.admin)
   create(@Body() createContentDto: CreateContentDto) {
 
     return this.contentService.create(createContentDto);
