@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { CommonModule } from './common/common.module';
+import { ContentModule } from './content/content.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './user/user.module';
 @Module({
@@ -13,12 +13,10 @@ import { UsersModule } from './user/user.module';
       type: 'postgres',
       url: process.env.URL,
       autoLoadEntities: true,
-      synchronize: true, // solo para desarrollo
+      synchronize: true, // Solo para desarrollo
     }),
 
-     CommonModule, AuthModule, UsersModule
+    AuthModule, UsersModule, ContentModule,AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
