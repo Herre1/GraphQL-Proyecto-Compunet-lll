@@ -1,28 +1,41 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Content } from '../../content/entities/content.entity'; // Relación con la entidad Content
+import { User } from '../../auth/entities/user.entity'; // Relación con la entidad User
 
-@Schema({ timestamps: true })
-export class Comment extends Document {
-  @Prop({ required: true })
+@Entity('comments')
+export class Comment {
+  
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column('text')
   content: string;
 
-  @Prop({ type: String, ref: 'User', required: true })  // Relación con usuario
-  author: string;  
+  // Relación con el usuario (author)
+  @ManyToOne(() => User, (user) => user.comments, { eager: true })
+  author: User;
 
-  @Prop({ type: String, ref: 'Content', required: true })  // Relación con contenido
-  contentId: string;  
+  // Relación con el contenido
+  @ManyToOne(() => Content, (content) => content.comments, { onDelete: 'CASCADE' })
+  contentId: Content;
 
-  @Prop({ type: String, ref: 'Comment', default: null })
-  parentComment?: string;  
+  // Relación con comentario padre (en caso de ser una respuesta)
+  @ManyToOne(() => Comment, (comment) => comment.replies, { nullable: true })
+  parentComment?: Comment;
 
-  @Prop({ type: [String], ref: 'Comment', default: [] })
-  replies: string[];  
+  // Relación con respuestas
+  @OneToMany(() => Comment, (comment) => comment.parentComment, { cascade: true })
+  replies: Comment[];
 
-  @Prop({ type: [String], ref: 'Reaction', default: [] })  
-  reactions: string[];  
+  @Column('simple-array', { default: [] })
+  reactions: string[];
 
-  @Prop({ default: 0 })
-  reactionsCount: number;  
+  @Column('int', { default: 0 })
+  reactionsCount: number;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
 }
-
-export const CommentSchema = SchemaFactory.createForClass(Comment);

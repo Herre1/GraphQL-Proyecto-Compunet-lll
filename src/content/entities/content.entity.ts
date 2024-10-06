@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Comment } from '../../comments/entities/comment.entity';
 
 @Entity('contents')
 export class Content {
@@ -41,5 +42,9 @@ export class Content {
     
     @Column('text', { nullable: true })
     productionCompany?: string; // Compañía productora (para películas y series)
+
+    @OneToMany(() => Comment, (comment) => comment.id)
+    comments: Comment[];
+
 
 }

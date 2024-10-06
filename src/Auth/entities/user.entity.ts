@@ -1,4 +1,5 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Comment } from '../../comments/entities/comment.entity';
 
 @Entity('users')
 export class User {
@@ -29,4 +30,8 @@ export class User {
     checkEmailUpdate(): void {
         this.checkEmail();
     }
+
+    @OneToMany(() => Comment, (comment) => comment.author)
+    comments: Comment[];
+
 }
