@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ContentModule } from './content/content.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './user/user.module';
+import { CommentsModule } from './comments/comments.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -16,7 +17,7 @@ import { UsersModule } from './user/user.module';
       synchronize: true, // Solo para desarrollo
     }),
 
-    AuthModule, UsersModule, ContentModule,AuthModule,
+    AuthModule, UsersModule, ContentModule,AuthModule,CommentsModule
   ],
 })
 export class AppModule {}

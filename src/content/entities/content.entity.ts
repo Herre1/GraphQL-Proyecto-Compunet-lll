@@ -43,8 +43,7 @@ export class Content {
     @Column('text', { nullable: true })
     productionCompany?: string; // Compañía productora (para películas y series)
 
-    @OneToMany(() => Comment, (comment) => comment.id)
+    @OneToMany(() => Comment, (comment) => comment.contentId)
     comments: Comment[];
-
-
+    
 }
