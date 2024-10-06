@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommentsService } from './comments.service';
 import { CommentsController } from './comments.controller';
-import { MongooseModule } from '@nestjs/mongoose'; 
-import { Comment , CommentSchema } from './entities/comment.entity';
+import { Comment } from './entities/comment.entity';
+import { Content } from '../content/entities/content.entity'; // Importar la entidad Content
+import { User } from '../auth/entities/user.entity'; // Importar la entidad User
+
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Comment.name, schema: CommentSchema }])],
+  imports: [
+    TypeOrmModule.forFeature([Comment, Content, User]), // Incluir Comment, Content y User en el módulo
+  ],
   controllers: [CommentsController],
   providers: [CommentsService],
   exports: [CommentsService],

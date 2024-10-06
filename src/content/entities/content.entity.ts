@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn , ManyToOne } from "typeorm";
+import { ContentType } from '../enums/content-type.enum'; // Importamos el enum que definimos
+import { Comment } from '../../comments/entities/comment.entity';
+import { List } from '../../list/entity/list.entity';
 
 @Entity('contents')
 export class Content {
@@ -22,10 +25,13 @@ export class Content {
     description: string;
 
     @Column('float', { default: 0 })
-    rating: number;
+    rating: number; // Considerar validaciones adicionales en el DTO para asegurarse de que esté entre 0 y 10
 
-    @Column('text')
-    type: string; // Definir si es película, serie o anime
+    @Column({
+        type: 'enum',
+        enum: ContentType,
+    })
+    type: ContentType; // Usamos un enumerador en lugar de texto libre
 
     @Column('text')
     director: string; // Director de la película, serie o anime
@@ -38,8 +44,14 @@ export class Content {
 
     @Column('text', { nullable: true })
     studio?: string; // Estudio de animación (para animes)
-    
+
     @Column('text', { nullable: true })
     productionCompany?: string; // Compañía productora (para películas y series)
+
+    @OneToMany(() => Comment, (comment) => comment.contentId)
+    comments: Comment[];
+
+    @ManyToOne(() => List, (list) => list.contents)
+    list: List;
 
 }
