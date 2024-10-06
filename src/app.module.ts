@@ -7,6 +7,7 @@ import { ContentModule } from './content/content.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './user/user.module';
 import { CommentsModule } from './comments/comments.module';
+import { ListModule } from './list/list.module';
 import { ReactionsModule } from './reactions/reactions.module';
 import { Content } from './content/entities/content.entity';
 import { List } from './list/entity/list.entity';
@@ -22,7 +23,7 @@ import { User } from './auth/entities/user.entity';
       synchronize: true, // Solo para desarrollo
     }),
     TypeOrmModule.forFeature([User, List, Content]),
-    AuthModule, UsersModule, ContentModule,CommentsModule,ReactionsModule
+    AuthModule, UsersModule, ContentModule, CommentsModule, ListModule, ReactionsModule
   ],
 })
 export class AppModule {}

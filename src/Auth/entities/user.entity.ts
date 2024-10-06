@@ -5,6 +5,7 @@ import { Reaction } from '../../reactions/entities/reaction.entity'; // Importar
 
 @Entity('users')
 export class User {
+
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
