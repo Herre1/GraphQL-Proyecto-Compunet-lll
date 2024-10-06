@@ -11,6 +11,11 @@ export class ReactionsController {
     return this.reactionsService.create(createReactionDto);
   }
 
+  @Get()
+  findAll() {
+    return this.reactionsService.findAll(); // Llama al servicio para obtener todas las reacciones
+  }
+
   @Get('comment/:id')
   findByComment(@Param('id') commentId: string) {
     return this.reactionsService.findByComment(commentId);
