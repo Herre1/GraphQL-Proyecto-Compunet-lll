@@ -10,6 +10,7 @@ import { CommentsModule } from './comments/comments.module';
 import { User } from './Auth/entities/user.entity';
 import { List } from './list/entity/list.entity';
 import { Content } from './content/entities/content.entity';
+import { ListModule } from './list/list.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -20,7 +21,7 @@ import { Content } from './content/entities/content.entity';
       synchronize: true, // Solo para desarrollo
     }),
     TypeOrmModule.forFeature([User, List, Content]),
-    AuthModule, UsersModule, ContentModule,AuthModule,CommentsModule
+    AuthModule, UsersModule, ContentModule,AuthModule,CommentsModule, ListModule
   ],
 })
 export class AppModule {}

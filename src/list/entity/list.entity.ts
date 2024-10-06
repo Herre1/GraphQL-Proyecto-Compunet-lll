@@ -14,5 +14,5 @@ export class List {
   contents: Content[];
 
   @Column('text')
-  status: 'completed' | 'in_progress'; // Para manejar el estado de la lista (opcional)
+  status: string; 
 }

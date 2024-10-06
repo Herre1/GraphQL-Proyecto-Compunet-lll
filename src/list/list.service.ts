@@ -15,7 +15,7 @@ export class ListService {
   ) {}
 
   async create(createListDto: CreateListDto) {
-    const { userId, contentIds } = createListDto;
+    const { userId, contentIds, status } = createListDto;
 
     // Verificar si el usuario existe
     const user = await this.userRepository.findOne({ where: { id: userId } });
@@ -30,7 +30,7 @@ export class ListService {
     }
 
     // Crear la nueva lista
-    const newList = this.listRepository.create({ user, contents });
+    const newList = this.listRepository.create({ user, contents, status });
     return this.listRepository.save(newList);
   }
 
