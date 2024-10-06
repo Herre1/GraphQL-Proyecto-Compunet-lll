@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { UsersService } from '../user/user.service';
 import { User } from '../Auth/entities/user.entity';
+import { OneToMany } from 'typeorm';
 
 @Controller('users')
 export class UsersController {
@@ -26,4 +27,5 @@ export class UsersController {
   remove(@Param('id') id: number) {
     return this.usersService.remove(id);
   }
+
 }
