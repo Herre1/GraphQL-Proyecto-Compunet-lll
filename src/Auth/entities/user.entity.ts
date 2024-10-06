@@ -37,4 +37,6 @@ export class User {
 
     @OneToMany(() => List, (list) => list.user)
     lists: List[];
+
+
 }

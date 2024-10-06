@@ -7,10 +7,10 @@ export class List {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => User, (user) => user.lists, { eager: true })
+  @ManyToOne(() => User, (user) => user.lists)
   user: User;
-
-  @OneToMany(() => Content, (content) => content.list, { cascade: true })
+  
+  @OneToMany(() => Content, (content) => content.list)
   contents: Content[];
 
   @Column('text')
