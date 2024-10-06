@@ -1,4 +1,5 @@
-import { IsString, IsInt, IsArray, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsInt, IsArray, IsOptional, IsEnum, Min, Max } from 'class-validator';
+import { ContentType } from '../enums/content-type.enum'; // Importamos el enum
 
 export class CreateContentDto {
   @IsString()
@@ -18,9 +19,31 @@ export class CreateContentDto {
   @IsString()
   description: string;
 
-  @IsEnum(['movie', 'series', 'anime'])
-  type: string;
+  @IsEnum(ContentType)
+  type: ContentType; // Usamos el enumerador para validar los tipos
 
   @IsString()
   director: string;
+
+  @IsOptional()
+  @IsInt()
+  seasons?: number; // Opcional para series
+
+  @IsOptional()
+  @IsInt()
+  episodes?: number; // Opcional para series o animes
+
+  @IsOptional()
+  @IsString()
+  studio?: string; // Solo para anime
+
+  @IsOptional()
+  @IsString()
+  productionCompany?: string; // Para películas y series
+
+  @IsInt()
+  @Min(0)
+  @Max(10)
+  rating: number; // Validar que el rating esté en el rango de 0 a 10
+
 }
