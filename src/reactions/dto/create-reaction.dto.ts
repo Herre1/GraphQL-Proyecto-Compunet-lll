@@ -1,14 +1,16 @@
-import { IsString, IsEnum, IsNotEmpty } from 'class-validator';
+import { IsEnum, IsString, IsNotEmpty } from 'class-validator';
+import { ReactionType } from '../enums/reaction-type.enum'; // Importamos el enum
 
 export class CreateReactionDto {
   @IsString()
   @IsNotEmpty()
-  commentId: string; // Relación con el comentario
+  commentId: string;
 
   @IsString()
   @IsNotEmpty()
-  userId: string; // Relación con el usuario
+  userId: string;
 
-  @IsEnum(['like', 'dislike'])
-  type: string; // Tipo de reacción (like, dislike, etc.)
+  @IsEnum(ReactionType)
+  type: ReactionType;
+
 }

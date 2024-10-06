@@ -1,16 +1,32 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { User } from 'src/auth/entities/user.entity';
+import { Comment } from 'src/comments/entities/comment.entity';
+import { ReactionType } from '../enums/reaction-type.enum'; // Importamos el enum
 
-@Schema({ timestamps: true })
-export class Reaction extends Document {
-  @Prop({ type: String, ref: 'User', required: true })  // Relación con el usuario
-  user: string;
+@Entity('reactions')
+export class Reaction {
 
-  @Prop({ type: String, ref: 'Comment', required: true })  // Relación con el comentario
-  comment: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Prop({ required: true })
-  type: string;  // Tipo de reacción (like, dislike, etc.)
+  @ManyToOne(() => User, user => user.reactions)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @ManyToOne(() => Comment, comment => comment.reactions)
+  @JoinColumn({ name: 'commentId' })
+  comment: Comment;
+
+  @Column({
+    type: 'enum',
+    enum: ReactionType, // Usamos el enum aquí
+  })
+  type: ReactionType; // Tipo de reacción ahora es un enum
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+  
 }
-
-export const ReactionSchema = SchemaFactory.createForClass(Reaction);

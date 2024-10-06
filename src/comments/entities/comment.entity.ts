@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Content } from '../../content/entities/content.entity'; // Relación con la entidad Content
 import { User } from '../../auth/entities/user.entity'; // Relación con la entidad User
+import { Reaction } from '../../reactions/entities/reaction.entity'; // Relación con la entidad Reaction
 
 @Entity('comments')
 export class Comment {
@@ -27,8 +28,9 @@ export class Comment {
   @OneToMany(() => Comment, (comment) => comment.parentComment, { cascade: true })
   replies: Comment[];
 
-  @Column('simple-array', { default: [] })
-  reactions: string[];
+  // Relación con reacciones
+  @OneToMany(() => Reaction, (reaction) => reaction.comment, { cascade: true })
+  reactions: Reaction[]; // Las reacciones ahora están relacionadas con la entidad Reaction
 
   @Column('int', { default: 0 })
   reactionsCount: number;
@@ -38,4 +40,5 @@ export class Comment {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
+  
 }

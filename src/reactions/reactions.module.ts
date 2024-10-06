@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReactionsService } from './reactions.service';
 import { ReactionsController } from './reactions.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Reaction, ReactionSchema } from './entities/reaction.entity';
+import { Reaction } from './entities/reaction.entity';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Reaction.name, schema: ReactionSchema }])],
+  imports: [TypeOrmModule.forFeature([Reaction])],
   controllers: [ReactionsController],
   providers: [ReactionsService],
   exports: [ReactionsService],
