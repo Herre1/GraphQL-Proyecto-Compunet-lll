@@ -11,4 +11,5 @@ export class CreateListDto {
 
   @IsString()
   status: string;
+  
 }

@@ -40,4 +40,5 @@ describe('Reaction Entity', () => {
     expect(Math.abs(reaction.createdAt.getTime() - currentTime.getTime())).toBeLessThan(1000);
     expect(Math.abs(reaction.updatedAt.getTime() - currentTime.getTime())).toBeLessThan(1000);
   });
+  
 });

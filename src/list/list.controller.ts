@@ -22,7 +22,7 @@ export class ListController {
   getListsByUser(@Param('userId') userId: string) {
     return this.listService.findByUser(userId);
   }
-  
+
   @Delete(':id')
   @Auth(ValidRoles.user)  // Solo usuarios autenticados pueden eliminar sus listas
   remove(@Param('id') listId: string, @GetUser() user: UserEntity) { // Usa el decorador para obtener el usuario

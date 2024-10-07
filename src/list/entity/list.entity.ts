@@ -15,4 +15,5 @@ export class List {
 
   @Column('text')
   status: string; 
+  
 }
