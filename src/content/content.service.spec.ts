@@ -2,10 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
-import { ContentService } from 'src/content/content.service';
-import { CreateContentDto } from 'src/content/dto/create-content.dto';
-import { Content } from 'src/content/entities/content.entity';
-import { ContentType } from 'src/content/enums/content-type.enum';
+import { ContentService } from '../content/content.service';
+import { CreateContentDto } from '../content/dto/create-content.dto';
+import { Content } from '../content/entities/content.entity';
+import { ContentType } from '../content/enums/content-type.enum';
 
 
 describe('ContentService', () => {
