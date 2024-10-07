@@ -7,10 +7,12 @@ import { ContentModule } from './content/content.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './user/user.module';
 import { CommentsModule } from './comments/comments.module';
-import { User } from './Auth/entities/user.entity';
-import { List } from './list/entity/list.entity';
-import { Content } from './content/entities/content.entity';
 import { ListModule } from './list/list.module';
+import { ReactionsModule } from './reactions/reactions.module';
+import { Content } from './content/entities/content.entity';
+import { List } from './list/entity/list.entity';
+import { User } from './auth/entities/user.entity';
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -21,7 +23,7 @@ import { ListModule } from './list/list.module';
       synchronize: true, // Solo para desarrollo
     }),
     TypeOrmModule.forFeature([User, List, Content]),
-    AuthModule, UsersModule, ContentModule,AuthModule,CommentsModule, ListModule
+    AuthModule, UsersModule, ContentModule, CommentsModule, ListModule, ReactionsModule
   ],
 })
 export class AppModule {}

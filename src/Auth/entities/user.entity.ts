@@ -1,9 +1,11 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Comment } from '../../comments/entities/comment.entity';
 import { List } from '../../list/entity/list.entity';
+import { Reaction } from '../../reactions/entities/reaction.entity'; // Importar Reaction
 
 @Entity('users')
 export class User {
+
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -35,8 +37,11 @@ export class User {
     @OneToMany(() => Comment, (comment) => comment.author)
     comments: Comment[];
 
+    // Nueva relación con Reaction
+    @OneToMany(() => Reaction, (reaction) => reaction.user)
+    reactions: Reaction[]; // Relación entre usuarios y reacciones
+
     @OneToMany(() => List, (list) => list.user)
     lists: List[];
-
 
 }

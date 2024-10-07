@@ -10,7 +10,7 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  @Auth(ValidRoles.user) // Solo usuarios autenticados pueden crear comentarios
+  @Auth(ValidRoles.user , ValidRoles.admin ) // Solo usuarios autenticados pueden crear comentarios
   create(
     @Body('contentId') contentId: string,
     @Body('userId') userId: string,
@@ -19,20 +19,18 @@ export class CommentsController {
     return this.commentsService.create(createCommentDto, userId, contentId);
   }
 
-  @Get()
-  @Auth() // Ruta abierta para todos los usuarios autenticados
+  @Get() // Ruta abierta para todos los usuarios autenticados
   findAll() {
     return this.commentsService.findAll();
   }
 
-  @Get(':id')
-  @Auth() // Ruta abierta para todos los usuarios autenticados
+  @Get(':id') // Ruta abierta para todos los usuarios autenticados
   findOne(@Param('id') id: string) {
     return this.commentsService.findOne(id);
   }
 
   @Post('reply/:id')
-  @Auth(ValidRoles.user) // Solo usuarios autenticados pueden responder a comentarios
+  @Auth(ValidRoles.user , ValidRoles.admin) // Solo usuarios autenticados pueden responder a comentarios
   replyToComment(
     @Param('id') parentCommentId: string,
     @Body('userId') userId: string,
@@ -42,8 +40,7 @@ export class CommentsController {
     return this.commentsService.replyToComment(parentCommentId, createCommentDto, userId, contentId);
   }
 
-  @Get('parent/:id')
-  @Auth() // Ruta abierta para todos los usuarios autenticados
+  @Get('parent/:id')// Ruta abierta para todos los usuarios autenticados
   findReplies(@Param('id') parentCommentId: string) {
     return this.commentsService.findReplies(parentCommentId);
   }
