@@ -75,4 +75,5 @@ describe('Content Entity', () => {
     expect(content.studio).toEqual('Test Studio');
     expect(content.productionCompany).toEqual('Test Production Company');
   });
+  
 });

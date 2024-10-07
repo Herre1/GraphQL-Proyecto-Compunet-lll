@@ -26,4 +26,5 @@ export class UpdateUserDto {
   @IsString({ each: true }) // Cada elemento del array debe ser una cadena
   @IsOptional()
   roles?: string[];
+  
 }

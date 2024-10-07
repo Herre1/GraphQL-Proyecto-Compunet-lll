@@ -19,4 +19,5 @@ export class ListController {
   getListsByUser(@Param('userId') userId: string) {
     return this.listService.findByUser(userId);
   }
+  
 }

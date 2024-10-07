@@ -37,4 +37,5 @@ export class ListService {
   async findByUser(userId: string) {
     return this.listRepository.find({ where: { user: { id: userId } } });
   }
+  
 }
