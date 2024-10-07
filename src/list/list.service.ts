@@ -37,4 +37,19 @@ export class ListService {
   async findByUser(userId: string) {
     return this.listRepository.find({ where: { user: { id: userId } } });
   }
+
+  async remove(listId: string, userId: string): Promise<void> {
+    // Buscar la lista por su ID y el usuario
+    const list = await this.listRepository.findOne({
+      where: { id: listId, user: { id: userId } },
+    });
+
+    // Verificar si la lista existe
+    if (!list) {
+      throw new NotFoundException(`List with ID ${listId} not found for user ${userId}`);
+    }
+
+    // Eliminar la lista
+    await this.listRepository.remove(list);
+  }
 }

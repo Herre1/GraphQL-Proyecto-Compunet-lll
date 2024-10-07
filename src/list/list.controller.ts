@@ -1,8 +1,11 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
 import { ListService } from './list.service';
 import { CreateListDto } from '../list/dtos/create-list.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { ValidRoles } from '../auth/interfaces/valid-roles';
+import { GetUser } from '../Auth/decorators/get-user/get-user.decorator'; // Importa el decorador correcto
+import { User as UserEntity} from '../Auth/entities/user.entity'
+
 
 @Controller('api/v1/lists')
 export class ListController {
@@ -18,5 +21,11 @@ export class ListController {
   @Auth(ValidRoles.user)
   getListsByUser(@Param('userId') userId: string) {
     return this.listService.findByUser(userId);
+  }
+  
+  @Delete(':id')
+  @Auth(ValidRoles.user)  // Solo usuarios autenticados pueden eliminar sus listas
+  remove(@Param('id') listId: string, @GetUser() user: UserEntity) { // Usa el decorador para obtener el usuario
+    return this.listService.remove(listId, user.id);
   }
 }
