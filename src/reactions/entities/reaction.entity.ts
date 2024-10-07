@@ -28,5 +28,10 @@ export class Reaction {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
+
+  constructor() {
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
   
 }
