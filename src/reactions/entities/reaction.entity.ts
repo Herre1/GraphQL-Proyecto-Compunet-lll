@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { User } from 'src/auth/entities/user.entity';
-import { Comment } from 'src/comments/entities/comment.entity';
+import { User } from '../../Auth/entities/user.entity';
+import { Comment } from '../../comments/entities/comment.entity';
 import { ReactionType } from '../enums/reaction-type.enum'; // Importamos el enum
 
 @Entity('reactions')
