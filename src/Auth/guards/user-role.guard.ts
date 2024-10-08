@@ -6,9 +6,7 @@ import { META_ROLES } from '../decorators/role-protected.decorator';
 @Injectable()
 export class UserRoleGuard implements CanActivate {
 
-  constructor(private readonly reflector: Reflector) {
-
-  }
+  constructor(private readonly reflector: Reflector) {}
 
   canActivate(
     context: ExecutionContext,
@@ -18,19 +16,15 @@ export class UserRoleGuard implements CanActivate {
 
     if(!validRoles)
       return true;
-
     const req = context.switchToHttp().getRequest();
     const user = req.user;
 
     if(!user)
       throw new BadRequestException('User not found');
 
-    //console.log()
-
     for (const role of user.roles) {
       if(validRoles.includes(role))
         return true;
-
     }
 
     throw new ForbiddenException(`User does not have the required roles: ${validRoles.join(", ")}`);
