@@ -107,17 +107,17 @@ En el repositorio se incluye un JSON de Postman que tiene pruebas en un entorno 
 
 ### Gestión de Reacciones
 
-   - POST /api/v1/reactions: Crea una reacción en un comentario.
-   - GET /api/v1/reactions: Obtiene todas las reacciones.
-   - GET /api/v1/reactions/comment/:id: Obtiene las reacciones de un comentario.
-   - GET /api/v1/reactions/user/:userId: Obtiene las reacciones de un usuario.
-   - DELETE /api/v1/reactions/:id: Elimina una reacción.
+   - POST /api/v1/reactions/ - Crea una reacción en un comentario.
+   - GET /api/v1/reactions/ - Obtiene todas las reacciones.
+   - GET /api/v1/reactions/comment/:id/ - Obtiene las reacciones de un comentario.
+   - GET /api/v1/reactions/user/:userId/ - Obtiene las reacciones de un usuario.
+   - DELETE /api/v1/reactions/:id/ - Elimina una reacción.
 
 ### Gestión de Listas
 
-   - POST /api/v1/lists: Crea una nueva lista de contenido para un usuario.
-   - GET /api/v1/lists/:userId: Obtiene las listas de un usuario.
-   - DELETE /api/v1/lists/:id: Elimina una lista específica.
+   - POST /api/v1/lists/ - Crea una nueva lista de contenido para un usuario.
+   - GET /api/v1/lists/:userId/ - Obtiene las listas de un usuario.
+   - DELETE /api/v1/lists/:id/ - Elimina una lista específica.
 
 ## Tecnologías Utilizadas
 
