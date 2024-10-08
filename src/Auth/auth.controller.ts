@@ -6,7 +6,7 @@ import { UserRoleGuard } from '../Auth/guards/user-role.guard';
 import { GetUser } from './decorators/get-user/get-user.decorator';
 import { RoleProtected } from './decorators/role-protected.decorator';
 import { ValidRoles } from './interfaces/valid-roles';
-import { Auth } from '../Auth/decorators/Auth.decorator';
+import { Auth } from '../Auth/decorators/auth.decorator';
 import { AuthService } from '../Auth/auth.service';
 
 @Controller('Auth')
