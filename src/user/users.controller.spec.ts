@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-
 import { UsersService } from '../user/user.service';
-import { User } from '../Auth/entities/user.entity';
+
 import { UsersController } from './user.controller';
+import { User } from 'src/auth/entities/user.entity';
 
 describe('UsersController', () => {
   let usersController: UsersController;
   let usersService: UsersService;
+  
 
   const mockUsersService = {
     findAll: jest.fn(),
