@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from '../../auth/entities/user.entity';
+import { User } from '../../Auth/entities/user.entity';
 import { Content } from '../../content/entities/content.entity';
 
 @Entity('lists')
