@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import { Auth } from '../auth/decorators/auth.decorator';
-import { ValidRoles } from '../auth/interfaces/valid-roles';
+import { Auth } from '../Auth/decorators/Auth.decorator';
+import { ValidRoles } from '../Auth/interfaces/valid-roles';
 
 @Controller('api/v1/comments')
 export class CommentsController {

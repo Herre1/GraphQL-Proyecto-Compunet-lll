@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ListService } from './list.service';
 import { ListController } from './list.controller';
 import { List } from './entity/list.entity';
-import { User } from '../auth/entities/user.entity';
+import { User } from '../Auth/entities/user.entity';
 import { Content } from '../content/entities/content.entity';
 
 @Module({

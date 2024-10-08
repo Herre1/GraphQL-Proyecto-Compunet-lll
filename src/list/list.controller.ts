@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
 import { ListService } from './list.service';
 import { CreateListDto } from '../list/dtos/create-list.dto';
-import { Auth } from '../auth/decorators/auth.decorator';
-import { ValidRoles } from '../auth/interfaces/valid-roles';
+import { Auth } from '../Auth/decorators/auth.decorator';
+import { ValidRoles } from '../Auth/interfaces/valid-roles';
 import { GetUser } from '../Auth/decorators/get-user/get-user.decorator'; // Importa el decorador correcto
 import { User as UserEntity} from '../Auth/entities/user.entity'
 

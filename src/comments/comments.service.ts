@@ -5,7 +5,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
 import { Content } from '../content/entities/content.entity';
-import { User } from '../auth/entities/user.entity';
+import { User } from '../Auth/entities/user.entity';
 
 @Injectable()
 export class CommentsService {

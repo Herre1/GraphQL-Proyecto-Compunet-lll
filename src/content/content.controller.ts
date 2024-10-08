@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ContentService } from './content.service';
 import { CreateContentDto } from './dto/create-content.dto';
 import { UpdateContentDto } from './dto/update-content.dto';
-import { Auth } from '../auth/decorators/auth.decorator';
-import { ValidRoles } from '../auth/interfaces/valid-roles';
+import { Auth } from '../Auth/decorators/auth.decorator';
+import { ValidRoles } from '../Auth/interfaces/valid-roles';
 
 @Controller('api/v1/content')
 export class ContentController {

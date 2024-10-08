@@ -4,7 +4,7 @@ import { CommentsService } from './comments.service';
 import { CommentsController } from './comments.controller';
 import { Comment } from './entities/comment.entity';
 import { Content } from '../content/entities/content.entity'; // Importar la entidad Content
-import { User } from '../auth/entities/user.entity'; // Importar la entidad User
+import { User } from '../Auth/entities/user.entity'; // Importar la entidad User
 
 @Module({
   imports: [

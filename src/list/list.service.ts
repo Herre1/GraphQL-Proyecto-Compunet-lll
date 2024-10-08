@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { List } from './entity/list.entity';
-import { User } from '../auth/entities/user.entity';
+import { User } from '../Auth/entities/user.entity';
 import { Content } from '../content/entities/content.entity';
 import { CreateListDto } from '../list/dtos/create-list.dto';
 

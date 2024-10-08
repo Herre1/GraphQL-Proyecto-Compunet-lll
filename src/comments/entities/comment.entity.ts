@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Content } from '../../content/entities/content.entity'; // Relación con la entidad Content
-import { User } from '../../auth/entities/user.entity'; // Relación con la entidad User
+import { User } from '../../Auth/entities/user.entity'; // Relación con la entidad User
 import { Reaction } from '../../reactions/entities/reaction.entity'; // Relación con la entidad Reaction
 
 @Entity('comments')
