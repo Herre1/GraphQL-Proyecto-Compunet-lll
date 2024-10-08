@@ -77,28 +77,47 @@ En el repositorio se incluye un JSON de Postman que tiene pruebas en un entorno 
 
 ### Gestión de Usuarios
 
-   - POST /api/v1/user/login - Login de un usuario.
-   - POST /api/v1/user/ - Crea un nuevo usuario (restringido solo al rol superadmin).
-   - GET /api/v1/user/ - Obtiene la lista de usuarios registrados.
-   - GET /api/v1/user/profile - Obtiene la informacion del usuario logeado.
-   - GET /api/v1/user/:id - Obtiene la informacion de un usuario por su ID.
-   - PUT /api/v1/user/:id - Modifica un usuario existente (restringido solo al rol superadmin).
-   - DELETE /api/v1/user/:id - Eliminar un usuario (restringido solo al rol superadmin).
+   - GET /users/ - Obtiene una lista de todos los usuarios.
+   - GET /users/:id/ - Obtiene la información de un usuario por su ID.
+   - PUT /users/:id/ - Actualiza la información del usuario indicado.
+   - DELETE /users/:id/ - Elimina el usuario indicado.
+
+### Gestión de Autenticacion y Autorizacion
+
+   - POST /auth/register/ - Registra un nuevo usuario.
+   - POST /auth/login/ - Autentica un usuario y devuelve un token JWT.
+
+### Gestión de Contenido
+
+   - POST /api/v1/content/ - Crea un nuevo contenido (accesible solo para admins).
+   - GET /api/v1/content/ - Lista todo el contenido disponible.
+   - GET /api/v1/content/:id/ - Obtiene un contenido específico por ID.
+   - PATCH /api/v1/content/:id/ - Actualiza un contenido existente (solo admins).
+   - DELETE /api/v1/content/:id/ - Elimina un contenido (solo admins).
 
 ### Gestión de Comentarios
 
-   - POST /api/v1/comment/ - Crea un nuevo comentario.
-   - POST /api/v1/comment/ - Crea una respuesta a un comentario. (Debe indicarse el comentario al que responde por medio del atributo "parentID : id")
-   - GET /api/v1/comment/:id - Obtiene el comentario con la ID especificada.
-   - GET /api/v1/comment/parent/:parentId - Obtiene las respuestas del comentario indicado.
-   - PUT /api/v1/comment/:id - Modifica el comentario indicado.
-   - DELETE /api/v1/comment/:id - Elimina el comentario indicado.
+   - POST /api/v1/comments/ - Crea un nuevo comentario.
+   - GET /api/v1/comments/ - Obtiene todos los comentarios.
+   - GET /api/v1/comments/:id/ - Obtiene un comentario específico por ID.
+   - POST /api/v1/comments/reply/:id/ - Responde a un comentario existente.
+   - GET /api/v1/comments/parent/:id/ - Obtiene todas las respuestas a un comentario.
+   - PATCH /api/v1/comments/:id/ - Actualiza un comentario existente.
+   - DELETE /api/v1/comments/:id/ - Elimina un comentario (solo admins).
 
 ### Gestión de Reacciones
 
-   - POST /api/v1/reaction/ - Crea una reaccion a un comentario (Debe indicarse el comentario al que reacciona por medio del atributo "commentId : id").
-   - GET /api/v1/reaction/:commentId - Obtiene las reacciones del comentario indicado.
-   - DELETE /api/v1/reaction/:commentId - Elimina una reacción del comentario indicado.
+   - POST /api/v1/reactions: Crea una reacción en un comentario.
+   - GET /api/v1/reactions: Obtiene todas las reacciones.
+   - GET /api/v1/reactions/comment/:id: Obtiene las reacciones de un comentario.
+   - GET /api/v1/reactions/user/:userId: Obtiene las reacciones de un usuario.
+   - DELETE /api/v1/reactions/:id: Elimina una reacción.
+
+### Gestión de Listas
+
+   - POST /api/v1/lists: Crea una nueva lista de contenido para un usuario.
+   - GET /api/v1/lists/:userId: Obtiene las listas de un usuario.
+   - DELETE /api/v1/lists/:id: Elimina una lista específica.
 
 ## Tecnologías Utilizadas
 
@@ -116,6 +135,10 @@ En el repositorio se incluye un JSON de Postman que tiene pruebas en un entorno 
   - **Roles de Usuario**: Soporte para diferentes roles de usuario, como admin y usuario regular.
   - **Operaciones CRUD**: Gestión completa de usuarios, contenido, comentarios, listas y reacciones.
   - **Protección de Rutas**: Las rutas CRUD están protegidas con middleware de autenticación y autorización, asegurando que solo usuarios con roles adecuados accedan a las rutas protegidas.
+  - **Gestión de Contenido**: Operaciones CRUD para administrar el contenido de películas, series y animes.
+  - **Gestión de Comentarios**: Los usuarios pueden realizar comentarios en el contenido, así como responder a otros comentarios, creando hilos de discusión.
+  - **Reacciones**: Los usuarios pueden reaccionar a los comentarios de otros usuarios, añadiendo interactividad.
+  - **Gestión de Listas**: Los usuarios pueden crear listas de contenido personalizado.
   - **Validaciones**: Validaciones de datos utilizando class-validator para asegurar la entrada de datos correcta.
 
 ## Pruebas
