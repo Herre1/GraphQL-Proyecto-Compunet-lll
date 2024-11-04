@@ -94,7 +94,11 @@
       ".entity.ts" ,
       "app" ,
       "main" ,
-      ".dto.ts" 
+      ".dto.ts" ,
+      ".decorator.ts",
+      ".strategy.ts",
+      ".guard.ts"
+
     ],
     "testEnvironment": "node"
   }
