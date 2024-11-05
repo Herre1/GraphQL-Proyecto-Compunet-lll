@@ -42,6 +42,7 @@ export class ListService {
     // Buscar la lista por su ID y el usuario
     const list = await this.listRepository.findOne({
       where: { id: listId, user: { id: userId } },
+      relations: ['contents'],
     });
 
     // Verificar si la lista existe
