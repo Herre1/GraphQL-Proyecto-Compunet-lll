@@ -54,4 +54,8 @@ export class Content {
     @ManyToOne(() => List, (list) => list.contents)
     list: List;
 
+    @Column('text', { nullable: true })
+    imageUrl: string; // Almacena la URL de la imagen subida a Cloudinary
+
+
 }
