@@ -35,8 +35,12 @@ export class ListService {
   }
 
   async findByUser(userId: string) {
-    return this.listRepository.find({ where: { user: { id: userId } } });
+    return this.listRepository.find({
+      where: { user: { id: userId } },
+      relations: ['contents'], // Incluye la relación con contenidos
+    });
   }
+  
 
   async remove(listId: string, userId: string): Promise<void> {
     // Buscar la lista por su ID y el usuario
