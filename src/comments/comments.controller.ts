@@ -4,6 +4,8 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Auth } from '../Auth/decorators/auth.decorator';
 import { ValidRoles } from '../Auth/interfaces/valid-roles';
+import { GetUser } from '../Auth/decorators/get-user/get-user.decorator';
+import { User } from '../Auth/entities/user.entity';
 
 @Controller('api/v1/comments')
 export class CommentsController {
@@ -56,4 +58,11 @@ export class CommentsController {
   remove(@Param('id') id: string) {
     return this.commentsService.remove(id);
   }
+
+  @Get('user')
+  @Auth(ValidRoles.user, ValidRoles.admin)
+  findByUser(@GetUser() user: User) {
+    return this.commentsService.findByUser(user.id);
+}
+
 }

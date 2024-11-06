@@ -53,7 +53,13 @@ export class CommentsService {
     return this.commentRepository.save(newComment);
   }
   
-
+  async findByUser(userId: string): Promise<Comment[]> {
+    return this.commentRepository.find({ 
+      where: { author: { id: userId } },
+      relations: ['author', 'contentId', 'replies'],
+      order: { createdAt: 'DESC' } 
+    });
+  }
 
 
   // Obtener todos los comentarios
