@@ -65,4 +65,9 @@ export class CommentsController {
     return this.commentsService.findByUser(user.id);
 }
 
+  @Get('content/:id') // Ruta para obtener los comentarios de un contenido específico
+  findCommentsByContent(@Param('id') contentId: string) {
+    return this.commentsService.findCommentsByContent(contentId);
+  }
+
 }

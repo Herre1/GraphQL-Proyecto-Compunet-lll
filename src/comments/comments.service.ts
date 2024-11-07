@@ -182,5 +182,21 @@ export class CommentsService {
     // Eliminar el comentario original
     return this.commentRepository.remove(comment);
   }
+
+    // Método para obtener los comentarios por el ID del contenido
+    async findCommentsByContent(contentId: string): Promise<Comment[]> {
+      // Verificamos si el contenido existe
+      const content = await this.contentRepository.findOne({
+        where: { id: contentId },
+        relations: ['comments'], // Asegúrate de que cargue los comentarios relacionados
+      });
+  
+      if (!content) {
+        throw new NotFoundException(`Content with ID ${contentId} not found`);
+      }
+  
+      // Devolver los comentarios asociados al contenido
+      return content.comments;
+    }
   
 }
