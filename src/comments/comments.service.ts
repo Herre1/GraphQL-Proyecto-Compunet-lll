@@ -21,7 +21,7 @@ export class CommentsService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     
-    @InjectRepository(Reaction)
+
     private readonly reactionsService: ReactionsService, // Inyecta el servicio de reacciones
 
   ) {}
