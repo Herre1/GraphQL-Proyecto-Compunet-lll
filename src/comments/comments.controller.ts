@@ -70,4 +70,11 @@ export class CommentsController {
     return this.commentsService.findCommentsByContent(contentId);
   }
 
+    // Nuevo método para obtener comentarios por el ID de usuario especificado en la URL
+    @Get('user/:userId')
+    @Auth(ValidRoles.user, ValidRoles.admin) // Solo usuarios autenticados o admin pueden ver comentarios por usuario
+    findByUserId(@Param('userId') userId: string) {
+      return this.commentsService.findByUser(userId);
+    }
+
 }
