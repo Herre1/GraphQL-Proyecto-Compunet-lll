@@ -50,7 +50,7 @@ export class ReactionsService {
 
     return this.reactionRepository.save(reaction);
   }
-
+  
   async findAll(): Promise<Reaction[]> {
     return this.reactionRepository.find({ relations: ['user', 'comment'] });
   }
@@ -97,4 +97,5 @@ export class ReactionsService {
 
     return { likes: likeCount, dislikes: dislikeCount };
   }
+ 
 }

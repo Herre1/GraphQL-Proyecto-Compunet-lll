@@ -6,6 +6,8 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
 import { Content } from '../content/entities/content.entity';
 import { User } from '../Auth/entities/user.entity';
+import { ReactionsService } from '../reactions/reactions.service';
+import { Reaction } from '../reactions/entities/reaction.entity';
 
 @Injectable()
 export class CommentsService {
@@ -18,6 +20,10 @@ export class CommentsService {
 
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    
+    @InjectRepository(Reaction)
+    private readonly reactionsService: ReactionsService, // Inyecta el servicio de reacciones
+
   ) {}
 
   async create(createCommentDto: CreateCommentDto, userId: string, contentId: string, parentCommentId?: string): Promise<Comment> {
@@ -184,19 +190,32 @@ export class CommentsService {
   }
 
     // Método para obtener los comentarios por el ID del contenido
-    async findCommentsByContent(contentId: string): Promise<Comment[]> {
-      // Verificamos si el contenido existe
-      const content = await this.contentRepository.findOne({
-        where: { id: contentId },
-        relations: ['comments'], // Asegúrate de que cargue los comentarios relacionados
-      });
-  
-      if (!content) {
-        throw new NotFoundException(`Content with ID ${contentId} not found`);
-      }
-  
-      // Devolver los comentarios asociados al contenido
-      return content.comments;
+  // Método para obtener los comentarios con conteo de reacciones
+  async findCommentsByContent(contentId: string): Promise<Comment[]> {
+    // Verificamos si el contenido existe
+    const content = await this.contentRepository.findOne({
+      where: { id: contentId },
+      relations: ['comments'], // Cargar los comentarios relacionados
+    });
+
+    if (!content) {
+      throw new NotFoundException(`Content with ID ${contentId} not found`);
     }
+
+    // Cargar comentarios con conteo de likes y dislikes
+    const comments = await this.commentRepository.find({
+      where: {id : contentId },
+      relations: ['author', 'replies'], // Relaciona otros datos que necesites
+    });
+
+    // Añadir el conteo de likes y dislikes a cada comentario
+    for (const comment of comments) {
+      const { likes, dislikes } = await this.reactionsService.countReactionsByComment(comment.id);
+      comment['likeCount'] = likes;
+      comment['dislikeCount'] = dislikes;
+    }
+
+    return comments;
+  }
   
 }
