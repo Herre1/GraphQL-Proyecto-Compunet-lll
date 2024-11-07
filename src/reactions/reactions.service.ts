@@ -5,6 +5,7 @@ import { CreateReactionDto } from './dto/create-reaction.dto';
 import { Reaction } from './entities/reaction.entity';
 import { User } from '../Auth/entities/user.entity';
 import { Comment } from '../comments/entities/comment.entity';
+import { ReactionType } from './enums/reaction-type.enum';
 
 @Injectable()
 export class ReactionsService {
@@ -12,28 +13,24 @@ export class ReactionsService {
     @InjectRepository(Reaction)
     private readonly reactionRepository: Repository<Reaction>,
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>, 
+    private readonly userRepository: Repository<User>,
     @InjectRepository(Comment)
-    private readonly commentRepository: Repository<Comment>, 
+    private readonly commentRepository: Repository<Comment>,
   ) {}
 
-  // Crear una nueva reacción
   async create(createReactionDto: CreateReactionDto): Promise<Reaction> {
     const { userId, commentId, type } = createReactionDto;
 
-    // Buscar el usuario
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
 
-    // Buscar el comentario
     const comment = await this.commentRepository.findOne({ where: { id: commentId } });
     if (!comment) {
       throw new NotFoundException(`Comment with ID ${commentId} not found`);
     }
 
-    // Verificar si ya existe una reacción de este usuario para este comentario
     const existingReaction = await this.reactionRepository.findOne({
       where: {
         user: { id: userId },
@@ -45,22 +42,19 @@ export class ReactionsService {
       throw new BadRequestException('User has already reacted to this comment');
     }
 
-    // Crear la reacción si no existe una previa
     const reaction = this.reactionRepository.create({
-      user,       // Asignar la entidad User
-      comment,    // Asignar la entidad Comment
-      type,       // Tipo de reacción
+      user,
+      comment,
+      type,
     });
 
     return this.reactionRepository.save(reaction);
   }
 
-  // Obtener todas las reacciones
   async findAll(): Promise<Reaction[]> {
     return this.reactionRepository.find({ relations: ['user', 'comment'] });
   }
 
-  // Obtener reacciones por ID del comentario
   async findByComment(commentId: string): Promise<Reaction[]> {
     const reactions = await this.reactionRepository.find({
       where: { comment: { id: commentId } },
@@ -72,7 +66,6 @@ export class ReactionsService {
     return reactions;
   }
 
-  // Obtener todas las reacciones de un usuario
   async findByUser(userId: string): Promise<Reaction[]> {
     const reactions = await this.reactionRepository.find({
       where: { user: { id: userId } },
@@ -84,7 +77,6 @@ export class ReactionsService {
     return reactions;
   }
 
-  // Eliminar una reacción
   async remove(id: string): Promise<Reaction> {
     const reaction = await this.reactionRepository.findOne({ where: { id } });
     if (!reaction) {
@@ -92,5 +84,17 @@ export class ReactionsService {
     }
     return this.reactionRepository.remove(reaction);
   }
-  
+
+  // Nuevo método para contar las reacciones (likes y dislikes) de un comentario específico
+  async countReactionsByComment(commentId: string) {
+    const likeCount = await this.reactionRepository.count({
+      where: { comment: { id: commentId }, type: ReactionType.LIKE },
+    });
+
+    const dislikeCount = await this.reactionRepository.count({
+      where: { comment: { id: commentId }, type: ReactionType.DISLIKE },
+    });
+
+    return { likes: likeCount, dislikes: dislikeCount };
+  }
 }

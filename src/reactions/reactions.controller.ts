@@ -13,7 +13,7 @@ export class ReactionsController {
 
   @Get()
   findAll() {
-    return this.reactionsService.findAll(); // Llama al servicio para obtener todas las reacciones
+    return this.reactionsService.findAll();
   }
 
   @Get('comment/:id')
@@ -30,5 +30,10 @@ export class ReactionsController {
   remove(@Param('id') id: string) {
     return this.reactionsService.remove(id);
   }
-  
+
+  // Nuevo endpoint para obtener el conteo de reacciones (likes y dislikes) de un comentario específico
+  @Get('count/:commentId')
+  async countReactionsByComment(@Param('commentId') commentId: string) {
+    return this.reactionsService.countReactionsByComment(commentId);
+  }
 }
