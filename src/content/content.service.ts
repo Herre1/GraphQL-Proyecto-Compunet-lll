@@ -1,38 +1,21 @@
-// src/content/content.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateContentDto } from './dto/create-content.dto';
 import { UpdateContentDto } from './dto/update-content.dto';
 import { Content } from './entities/content.entity';
-import { CloudinaryProvider } from '../cloudinary/cloudinary.provider';
 
 @Injectable()
 export class ContentService {
-  constructor(
-    @InjectRepository(Content) private readonly contentRepository: Repository<Content>,
-    private readonly cloudinaryProvider: CloudinaryProvider
-  ) {}
 
-    async create(createContentDto: CreateContentDto, file: Express.Multer.File) {
-        const uploadResult = await this.cloudinaryProvider.uploadImage(file);
-        const content = this.contentRepository.create({
-          ...createContentDto,
-          imageUrl: uploadResult.secure_url,
-        });
-        return this.contentRepository.save(content);
-      }
+  constructor(@InjectRepository(Content) private readonly contentRepository: Repository<Content>) {}
 
-    async update(id: string, updateContentDto: UpdateContentDto, file?: Express.Multer.File) {
-      const content = await this.findOne(id);
+  create(createContentDto: CreateContentDto) {
 
-      if (file) {
-        const uploadResult = await this.cloudinaryProvider.uploadImage(file);
-        content.imageUrl = uploadResult.secure_url;
-      }
+    const content = this.contentRepository.create(createContentDto);
 
-    Object.assign(content, updateContentDto);
     return this.contentRepository.save(content);
+
   }
 
   findAll() {
@@ -53,6 +36,17 @@ export class ContentService {
     
   }
 
+  async update(id: string, updateContentDto: UpdateContentDto) {
+
+    const content = await this.contentRepository.preload({id,...updateContentDto,});
+
+    if (!content) {
+      throw new NotFoundException(`Content with ID ${id} not found`);
+    }
+
+    return this.contentRepository.save(content);
+
+  }
 
   async remove(id: string) {
 
