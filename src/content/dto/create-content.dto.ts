@@ -45,5 +45,8 @@ export class CreateContentDto {
   @Min(0)
   @Max(10)
   rating: number; // Validar que el rating esté en el rango de 0 a 10
-
+  
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
 }
